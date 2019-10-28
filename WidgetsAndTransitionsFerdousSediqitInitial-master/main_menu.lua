@@ -136,7 +136,7 @@ function scene:show( event )
 
         -- The function which transitions to the next screen
         function Transition_ZoomOutInFade( )
-            composer.gotoScene( "zoomOutInFade Screen", transitionOptions_ZoomOutInFade )
+            composer.gotoScene( "zoomInFade Screen", transitionOptions_ZoomOutInFade )
         end
 
         -----------------------------------------------------------------------------------------
@@ -173,7 +173,7 @@ function scene:show( event )
         local transitionOptions_Flip = (
             {
                 effect = "flip", -- The animation it's going to use when transitioning
-                time = 1000, -- How long the transition will take
+                time = 4000, -- How long the transition will take
             })
 
         -- The function which transitions to the next screen
@@ -186,7 +186,7 @@ function scene:show( event )
         -- Pre-Setting the Transition options
         local transitionOptions_FlipFadeOutIn = (
             {
-                effect = "flipFadeOutIn", -- The animation it's going to use when transitioning
+                effect = "flipFadeIn", -- The animation it's going to use when transitioning
                 time = 1000, -- How long the transition will take
             })
 
@@ -284,13 +284,13 @@ function scene:show( event )
         -- Pre-Setting the Transition options
         local transitionOptions_FromTop = (
             {
-                effect = "fromTop", -- The animation it's going to use when transitioning
+                effect = "fromBottom", -- The animation it's going to use when transitioning
                 time = 1000, -- How long the transition will take
             })
 
         -- The function which transitions to the next screen
         function Transition_FromTop( )
-            composer.gotoScene( "fromTop Screen", transitionOptions_FromTop )
+            composer.gotoScene( "fromBottom Screen", transitionOptions_FromTop )
         end
 
         -----------------------------------------------------------------------------------------
