@@ -69,6 +69,7 @@ local congratulationText
 
 -- Displays text that says correct.
 local correct 
+local incorrect
 
 -- Displays the level text of time text
 local level1Text 
@@ -127,6 +128,9 @@ local function LoseScreenTransition( )
     composer.gotoScene( "you_lose", {effect = "zoomInOutFade", time = 1000})
 end 
 
+local function winScreenTransition()
+composer.gotoScene("you_win", {effect= "zoomOutFade", time = 1000})
+end
 -- The function that displays the equation and determines the answer and the wrong answers
 local function DisplayAddEquation()
     -- local variables to this function
@@ -150,7 +154,7 @@ local function RestartScene()
 
     alreadyClickedAnswer = false
     correct.isVisible = false
-
+    incorrect.isVisible = false
     livesText.text = "Number of lives = " .. tostring(lives)
     numberCorrectText.text = "Number correct = " .. tostring(numberCorrect)
 
@@ -196,6 +200,7 @@ local function TouchListenerWrongAnswer1(touch)
 
 
         if (answer ~= tonumber(userAnswer)) then
+            incorrect.isVisible = true
             -- decrease a life
             lives = lives - 1
             -- call RestartScene after 1 second
@@ -292,6 +297,11 @@ function scene:create( event )
     correct = display.newText("Correct", display.contentWidth/2, display.contentHeight*1/3, nil, 50 )
     correct:setTextColor(100/255, 47/255, 210/255)
     correct.isVisible = false
+    --wrong object
+     incorrect = display.newText("incorrect answer", display.contentWidth/2, display.contentHeight*1/3, nil, 50 )
+    incorrect:setTextColor(100/255, 47/255, 210/255)
+    incorrect.isVisible = false
+
 
     -- create the text object that will say Out of Time, set the colour and then hide it
     outOfTimeText = display.newText("Out of Time!", display.contentWidth*2/5, display.contentHeight*1/3, nil, 50)
