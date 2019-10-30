@@ -1,4 +1,4 @@
------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
 --
 -- splash_screen.lua
 -- Created by: Your Name
@@ -24,8 +24,8 @@ local scene = composer.newScene( sceneName )
  
 -- The local variables for this scene
 local beetleship
-local scrollXSpeed = 8
-local scrollYSpeed = -3
+local scrollXSpeed = 10
+local scrollYSpeed = -5
 local jungleSounds = audio.loadSound("Sounds/animals144.mp3")
 local jungleSoundsChannel
 

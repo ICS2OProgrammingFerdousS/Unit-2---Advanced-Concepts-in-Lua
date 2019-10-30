@@ -9,6 +9,9 @@
 -- Hiding Status Bar
 -- HIDE THE STATUS BAR
 
+-- hide the status bar
+display.setStatusBar(display.HiddenStatusBar)
+
 -----------------------------------------------------------------------------------------
 
 -- Use composer library

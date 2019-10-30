@@ -1,17 +1,3 @@
------------------------------------------------------------------------------------------
---
--- credits_screen.lua
--- Created by: Your Name
--- Special thanks to Wal Wal for helping in the design of this framework.
--- Date: Month Day, Year
--- Description: This is the credits page, displaying a back button to the main menu.
------------------------------------------------------------------------------------------
-
------------------------------------------------------------------------------------------
--- INITIALIZATIONS
------------------------------------------------------------------------------------------
-
--- Use Composer Libraries
 local composer = require( "composer" )
 local widget = require( "widget" )
 
@@ -44,7 +30,7 @@ end
 -----------------------------------------------------------------------------------------
 
 -- The function called when the screen doesn't exist
- function scene:create( event )
+function scene:create( event )
 
     -- Creating a group that associates objects with the scene
     local sceneGroup = self.view
@@ -54,7 +40,6 @@ end
     -----------------------------------------------------------------------------------------
 
     -- Insert the background image and set it to the center of the screen
-
     bkg_image = display.newImageRect("Images/Credits Screen.png", display.contentWidth, display.contentHeight)
     bkg_image.x = display.contentCenterX
     bkg_image.y = display.contentCenterY
@@ -79,8 +64,8 @@ end
         y = display.contentHeight*15/16,
 
         -- Setting Dimensions
-        -- width = 1000,
-        -- height = 106,
+        width = 1000,
+        height = 106,
 
         -- Setting Visual Properties
         defaultFile = "Images/Back Button Unpressed.png",
@@ -182,5 +167,8 @@ scene:addEventListener( "destroy", scene )
 -----------------------------------------------------------------------------------------
 
 return scene
+
+
+
 
 

@@ -1,16 +1,4 @@
------------------------------------------------------------------------------------------
---
--- main_menu.lua
--- Created by: Your Name
--- Date: Month Day, Year
--- Description: This is the main menu, displaying the credits, instructions & play buttons.
------------------------------------------------------------------------------------------
-
------------------------------------------------------------------------------------------
--- INITIALIZATIONS
------------------------------------------------------------------------------------------
-
--- Use Composer Library
+---- Use Composer Library
 local composer = require( "composer" )
 
 -----------------------------------------------------------------------------------------
@@ -21,12 +9,12 @@ local widget = require( "widget" )
 -----------------------------------------------------------------------------------------
 
 -- Naming Scene
-sceneName = "main_menu"
+mainMenu = "main_menu"
 
 -----------------------------------------------------------------------------------------
 
 -- Creating Scene Object
-local scene = composer.newScene( sceneName )
+local scene = composer.newScene( mainMenu )
 
 -----------------------------------------------------------------------------------------
 -- LOCAL VARIABLES
@@ -35,6 +23,7 @@ local scene = composer.newScene( sceneName )
 local bkg_image
 local playButton
 local creditsButton
+local instructionsButton
 
 -----------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
@@ -42,18 +31,24 @@ local creditsButton
 
 -- Creating Transition Function to Credits Page
 local function CreditsTransition( )       
-    composer.gotoScene( "credits_screen", {effect = "flipFadeOutIn", time = 500})
+    composer.gotoScene( "credits_screen", {effect = "crossFade", time = 500})
 end 
 
 -----------------------------------------------------------------------------------------
 
 -- Creating Transition to Level1 Screen
 local function Level1ScreenTransition( )
-    composer.gotoScene( "level1_screen", {effect = "zoomInOutFade", time = 1000})
-end    
+    composer.gotoScene( "level1_screen", {effect = "crossFade", time = 1000})
+end   
+
+-----------------------------------------------------------------------------------------
 
 -- INSERT LOCAL FUNCTION DEFINITION THAT GOES TO INSTRUCTIONS SCREEN 
+local function gotoInstructions( )
+    composer.gotoScene("Instruction", {effect = "crossFade", time = 500})
+end
 
+timer.performWithDelay ( 3000, gotoInstructions )
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
 -----------------------------------------------------------------------------------------
@@ -90,12 +85,16 @@ function scene:create( event )
     playButton = widget.newButton( 
         {   
             -- Set its position on the screen relative to the screen size
-            x = display.contentWidth/2,
-            y = display.contentHeight*7/8,
+            x = display.contentWidth*4/8,
+            y = display.contentHeight*9/10,
+
+            -- Setting Dimensions
+            width = 150,
+            height = 70,
 
             -- Insert the images here
-            defaultFile = "Images/Start Button Unpressed.png",
-            overFile = "Images/Start Button Pressed.png",
+            defaultFile = "Images/Start Button Unpressed.png", 150, 100,
+            overFile = "Images/Start Button Pressed.png", 150, 100,
 
             -- When the button is released, call the Level1 screen transition function
             onRelease = Level1ScreenTransition          
@@ -108,18 +107,41 @@ function scene:create( event )
         {
             -- Set its position on the screen relative to the screen size
             x = display.contentWidth*7/8,
-            y = display.contentHeight*7/8,
+            y = display.contentHeight*9/10,
+
+            -- Setting Dimensions
+            width = 150,
+            height = 70,
 
             -- Insert the images here
-            defaultFile = "Images/Credits Button Unpressed.png",
-            overFile = "Images/Credits Button Pressed.png",
+            defaultFile = "Images/Credits Button Unpressed.png", 150, 100,
+            overFile = "Images/Credits Button Pressed.png", 150, 100,
 
             -- When the button is released, call the Credits transition function
             onRelease = CreditsTransition
         } ) 
-    
-    -- ADD INSTRUCTIONS BUTTON WIDGET
 
+    -----------------------------------------------------------------------------------------
+
+    -- ADD INSTRUCTIONS BUTTON WIDGET
+    instructionsButton = widget.newButton( 
+        {
+            -- Set its position on the screen relative to the screen size
+            x = display.contentWidth*1/8,
+            y = display.contentHeight*9/10,
+
+            -- Setting Dimensions
+            width = 150,
+            height = 70,
+
+            -- Insert the images here
+            defaultFile = "Images/Instructions Button Unpressed.png", 150, 100,
+            overFile = "Images/Instructions Button Pressed.png", 150, 100,
+
+            -- When the button is released, call the Credits transition function
+            onRelease = InstructionsTransition
+        } ) 
+   
     -----------------------------------------------------------------------------------------
 
     -- Associating button widgets with this scene
@@ -127,10 +149,9 @@ function scene:create( event )
     sceneGroup:insert( creditsButton )
     
     -- INSERT INSTRUCTIONS BUTTON INTO SCENE GROUP
+    sceneGroup:insert( instructionsButton )
 
 end -- function scene:create( event )   
-
-
 
 -----------------------------------------------------------------------------------------
 
@@ -148,14 +169,16 @@ function scene:show( event )
 
     -- Called when the scene is still off screen (but is about to come on screen).   
     if ( phase == "will" ) then
-       
+
+        -- The function that will go to the main menu 
+
     -----------------------------------------------------------------------------------------
 
     -- Called when the scene is now on screen.
+    elseif ( phase == "did" ) then
+
     -- Insert code here to make the scene come alive.
-    -- Example: start timers, begin animation, play audio, etc.
-    elseif ( phase == "did" ) then       
-        
+    -- Example: start timers, begin animation, play audio, etc.     
 
     end
 
