@@ -288,6 +288,7 @@ local function TouchListenerWrongAnswer2(touch)
 
 
             if (answer ~= tonumber(userAnswer)) then
+           wrongChennal = audio.play(wrongSound)
 
                 incorrect.isVisible = true
 

@@ -1,3 +1,7 @@
+
+
+
+
 local composer = require( "composer" )
 local widget = require( "widget" )
 
@@ -20,9 +24,9 @@ local backButton
 -----------------------------------------------------------------------------------------
 
 -- Creating Transitioning Function back to main menu
-local function BackTransition( )
+--local function BackTransition( )
     composer.gotoScene( "main_menu", {effect = "zoomOutInFadeRotate", time = 500})
-end
+--end
 
 
 -----------------------------------------------------------------------------------------
@@ -33,7 +37,7 @@ end
 function scene:create( event )
 
     -- Creating a group that associates objects with the scene
-    local sceneGroup = self.view
+local sceneGroup = self.view
 
     -----------------------------------------------------------------------------------------
     -- BACKGROUND AND DISPLAY OBJECTS
@@ -64,7 +68,7 @@ function scene:create( event )
         y = display.contentHeight*15/16,
 
         -- Setting Dimensions
-        width = 1000,
+        width = 100,
         height = 106,
 
         -- Setting Visual Properties
@@ -99,7 +103,13 @@ function scene:show( event )
 
     if ( phase == "will" ) then
         -- Called when the scene is still off screen (but is about to come on screen).
-
+local transitionOption = ({
+        effect="fromRight",
+        time = 1000
+   })
+    function BackTransition( )
+    composer.gotoScene( "main_menu", transitionOption)
+    end
     -----------------------------------------------------------------------------------------
 
     elseif ( phase == "did" ) then
@@ -167,8 +177,5 @@ scene:addEventListener( "destroy", scene )
 -----------------------------------------------------------------------------------------
 
 return scene
-
-
-
 
 

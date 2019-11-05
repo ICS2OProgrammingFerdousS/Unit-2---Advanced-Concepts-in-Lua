@@ -31,21 +31,21 @@ local instructionsButton
 
 -- Creating Transition Function to Credits Page
 local function CreditsTransition( )       
-    composer.gotoScene( "credits_screen", {effect = "crossFade", time = 500})
+    composer.gotoScene( "credits_screen", {effect = "fromRight", time = 500})
 end 
 
 -----------------------------------------------------------------------------------------
 
 -- Creating Transition to Level1 Screen
 local function Level1ScreenTransition( )
-    composer.gotoScene( "level1_screen", {effect = "crossFade", time = 1000})
+    composer.gotoScene( "level1_screen", {effect = "fromLeft", time = 1000})
 end   
 
 -----------------------------------------------------------------------------------------
 
 -- INSERT LOCAL FUNCTION DEFINITION THAT GOES TO INSTRUCTIONS SCREEN 
 local function gotoInstructions( )
-    composer.gotoScene("Instruction", {effect = "crossFade", time = 500})
+    composer.gotoScene("Instruction", {effect = "zoomOutInRotate", time = 500})
 end
 
 timer.performWithDelay ( 3000, gotoInstructions )
