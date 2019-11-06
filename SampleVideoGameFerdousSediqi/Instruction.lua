@@ -113,7 +113,6 @@ function scene:show( event )
         -- Insert code here to make the scene come alive.
         -- Example: start timers, begin animation, play audio, etc.
 
-        timer.performWithDelay(2000, HideCorrect)
 
     end
 

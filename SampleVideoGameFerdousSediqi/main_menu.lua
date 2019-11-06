@@ -48,7 +48,7 @@ local function gotoInstructions( )
     composer.gotoScene("Instruction", {effect = "crossFade", time = 500})
 end
 
-timer.performWithDelay ( 3000, gotoInstructions )
+--timer.performWithDelay ( 3000, gotoInstructions )
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
 -----------------------------------------------------------------------------------------
