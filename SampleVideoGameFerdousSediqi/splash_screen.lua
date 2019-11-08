@@ -90,7 +90,7 @@ function scene:show( event )
 
     elseif ( phase == "did" ) then
         -- start the splash screen music
-        jungleSoundsChannel = audio.play(jungleSounds )
+        jungleSoundsChannel = audio.play(jungleSounds)
 
         -- Call the moveBeetleship function as soon as we enter the frame.
         Runtime:addEventListener("enterFrame", moveBeetleship)
