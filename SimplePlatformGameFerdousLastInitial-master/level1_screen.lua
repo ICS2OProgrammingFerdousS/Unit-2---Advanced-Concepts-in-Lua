@@ -55,23 +55,22 @@ local character
 local heart1
 local heart2
 local numLives = 2
-
 local rArrow 
 local uArrow
+local lArrow
 
 local motionx = 0
 local SPEED = 5
 local LINEAR_VELOCITY = -100
 local GRAVITY = 7
-
 local leftW 
 local topW
 local floor
-
+local rightW
 local ball1
 local ball2
 local theBall
-
+local ball3
 local questionsAnswered = 0
 
 -----------------------------------------------------------------------------------------
@@ -507,6 +506,9 @@ function scene:create( event )
 
     -- Insert objects into the scene group in order to ONLY be associated with this scene
     sceneGroup:insert( ball2 )
+    ball3 = display.newImageRect ("Images/SoccerBall.png", 70, 70)
+    
+
 
 end --function scene:create( event )
 
