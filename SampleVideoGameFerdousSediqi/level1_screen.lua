@@ -1,4 +1,3 @@
--- Use Composer Libraries
 local composer = require( "composer" )
 local widget = require( "widget" )
 
@@ -60,6 +59,13 @@ function scene:show( event )
     if ( phase == "will" ) then
 
         -- Called when the scene is still off screen (but is about to come on screen).
+        local transitionOption = ({
+        effect="fromLeft",
+        time = 1000
+   })
+    function BackTransition( )
+    composer.gotoScene( "main_menu", transitionOption)
+    end
     -----------------------------------------------------------------------------------------
 
     elseif ( phase == "did" ) then
@@ -125,3 +131,4 @@ scene:addEventListener( "destroy", scene )
 -----------------------------------------------------------------------------------------
 
 return scene
+
