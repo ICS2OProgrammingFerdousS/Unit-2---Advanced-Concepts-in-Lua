@@ -1,8 +1,8 @@
 -----------------------------------------------------------------------------------------
---
--- level1_screen.lua
--- Created by: Ms Raffin
--- Date: Nov. 22nd, 2014
+-- Title: Simple Platform Game
+-- Name: Ferdous Sediqi
+-- Course: ICS2O
+-- This program...
 -- Description: This is the level 1 screen of the game.
 -----------------------------------------------------------------------------------------
 
@@ -54,14 +54,15 @@ local character
 
 local heart1
 local heart2
-local numLives = 2
+local heart3
+local numLives = 3
 local rArrow 
 local uArrow
 local lArrow
 
 local motionx = 0
-local SPEED = 5
-local LINEAR_VELOCITY = -100
+local SPEED = 10
+local LINEAR_VELOCITY = -150
 local GRAVITY = 7
 local leftW 
 local topW
@@ -89,6 +90,11 @@ local function up (touch)
         character:setLinearVelocity( 0, LINEAR_VELOCITY )
     end
 end
+--when the right arrow touched
+local function left(touch)
+    motionx = motionx - SPEED
+    character.xScale = -1
+end
 
 -- Move character horizontally
 local function movePlayer (event)
@@ -106,11 +112,16 @@ end
 local function AddArrowEventListeners()
     rArrow:addEventListener("touch", right)
     uArrow:addEventListener("touch", up)
+    lArrow:addEventListener("touch", left)
+
+
 end
 
 local function RemoveArrowEventListeners()
     rArrow:removeEventListener("touch", right)
     uArrow:removeEventListener("touch", up)
+    lArrow:removeEventListener("touch", left)
+
 end
 
 local function AddRuntimeListeners()
@@ -151,6 +162,7 @@ end
 local function MakeSoccerBallsVisible()
     ball1.isVisible = true
     ball2.isVisible = true
+    ball3.isVisible = true
 end
 
 local function MakeHeartsVisible()
@@ -160,6 +172,9 @@ end
 
 local function YouLoseTransition()
     composer.gotoScene( "you_lose" )
+end
+local function YouWinTransition(  )
+    composer.gotoScene("you_win")
 end
 
 local function onCollision( self, event )
@@ -199,14 +214,19 @@ local function onCollision( self, event )
 
             elseif (numLives == 0) then
                 -- update hearts
-                heart1.isVisible = false
+                heart1.isVisible = true
                 heart2.isVisible = false
                 timer.performWithDelay(200, YouLoseTransition)
             end
-        end
+           end
+
+
 
         if  (event.target.myName == "ball1") or
-            (event.target.myName == "ball2") then
+            (event.target.myName == "ball2") or
+
+            (event.target.myName == "ball3") then
+
 
             -- get the ball that the user hit
             theBall = event.target
@@ -218,7 +238,7 @@ local function onCollision( self, event )
             character.isVisible = false
 
             -- show overlay with math question
-            composer.showOverlay( "level1_question", { isModal = true, effect = "fade", time = 100})
+            composer.showOverlay( "level1_question", { isModal = true, effect = "fromRight", time = 800})
 
             -- Increment questions answered
             questionsAnswered = questionsAnswered + 1
@@ -249,10 +269,14 @@ local function AddCollisionListeners()
     ball1:addEventListener( "collision" )
     ball2.collision = onCollision
     ball2:addEventListener( "collision" )
+    ball3.collision = onCollision
+    ball3:addEventListener("collision")
 
     door.collision = onCollision
     door:addEventListener( "collision" )
+
 end
+    timer.performWithDelay( YouWinTransition)
 
 local function RemoveCollisionListeners()
     spikes1:removeEventListener( "collision" )
@@ -261,7 +285,7 @@ local function RemoveCollisionListeners()
 
     ball1:removeEventListener( "collision" )
     ball2:removeEventListener( "collision" )
-
+    ball3:removeEventListener("collision")
     door:removeEventListener( "collision")
 
 end
@@ -284,10 +308,14 @@ local function AddPhysicsBodies()
     physics.addBody(leftW, "static", {density=1, friction=0.3, bounce=0.2} )
     physics.addBody(topW, "static", {density=1, friction=0.3, bounce=0.2} )
     physics.addBody(floor, "static", {density=1, friction=0.3, bounce=0.2} )
+    physics.addBody(rightW, "static", {density=1, friction=0.3, bounce=0.2} )
+
 
     physics.addBody(ball1, "static",  {density=0, friction=0, bounce=0} )
     physics.addBody(ball2, "static",  {density=0, friction=0, bounce=0} )
+    physics.addBody(ball3, "static",  {density=0, friction=0, bounce=0} )
 
+ 
     physics.addBody(door, "static", {density=1, friction=0.3, bounce=0.2})
 
 end
@@ -309,6 +337,8 @@ local function RemovePhysicsBodies()
     physics.removeBody(leftW)
     physics.removeBody(topW)
     physics.removeBody(floor)
+    physics.removeBody(rightW)
+
  
 end
 
@@ -442,6 +472,12 @@ function scene:create( event )
     heart2.x = 130
     heart2.y = 50
     heart2.isVisible = true
+--insert heart
+ heart2 = display.newImageRect("Images/heart.png", 80, 80)
+ heart2.x = 210
+ heart2.y = 50
+ heart2.isVisible = true
+
 
     -- Insert objects into the scene group in order to ONLY be associated with this scene
     sceneGroup:insert( heart2 )
@@ -458,12 +494,19 @@ function scene:create( event )
     uArrow = display.newImageRect("Images/UpArrowUnpressed.png", 50, 100)
     uArrow.x = display.contentWidth * 8.2 / 10
     uArrow.y = display.contentHeight * 8.5 / 10
+-- insert the left arrow
+      --Insert the left arrow
+    lArrow = display.newImageRect("Images/LeftArrowUnpressed.png", 50, 100)
+    lArrow.x = display.contentWidth * 8.2 / 11
+    lArrow.y = display.contentHeight * 8.5 / 9
 
     -- Insert objects into the scene group in order to ONLY be associated with this scene
     sceneGroup:insert( uArrow)
 
     --WALLS--
-    leftW = display.newLine( 0, 0, 0, display.contentHeight)
+  
+  leftW = display.newLine( 0, 0, 0, display.contentHeight)
+  leftW.x =0
     leftW.isVisible = true
 
     -- Insert objects into the scene group in order to ONLY be associated with this scene
@@ -507,7 +550,10 @@ function scene:create( event )
     -- Insert objects into the scene group in order to ONLY be associated with this scene
     sceneGroup:insert( ball2 )
     ball3 = display.newImageRect ("Images/SoccerBall.png", 70, 70)
-    
+    ball3.x = 900
+    ball3.y = 140
+    ball3.myName = "ball3"
+    sceneGroup:insert(ball3)
 
 
 end --function scene:create( event )
@@ -531,7 +577,7 @@ function scene:show( event )
         physics.start()
 
         -- set gravity
-        physics.setGravity( 0, GRAVITY )
+        physics.setGravity( 1, GRAVITY )
 
     elseif ( phase == "did" ) then
 
