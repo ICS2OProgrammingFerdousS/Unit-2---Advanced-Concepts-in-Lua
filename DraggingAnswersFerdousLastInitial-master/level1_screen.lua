@@ -38,7 +38,7 @@ local questionText
 local correctAnswer
 local alternateAnswer1
 local alternateAnswer2    
-
+local alternateAnswer3
 -- Variables containing the user answer and the actual answer
 local userAnswer
 
@@ -78,8 +78,8 @@ local function DisplayQuestion()
     local randomNumber2
 
     --set random numbers
-    randomNumber1 = math.random(2, 15)
-    randomNumber2 = math.random(2, 15)
+    randomNumber1 = math.random(2, 20)
+    randomNumber2 = math.random(2, 20)
 
     --calculate answer
     correctAnswer = randomNumber1 + randomNumber2
@@ -181,7 +181,6 @@ end
 local function YouWinTransitionLevel1( )
     composer.gotoScene("you_win", {effect = "fade", time = 500})
 end
-
 -- Function to Restart Level 1
 local function RestartLevel1()
     DisplayQuestion()
@@ -257,7 +256,7 @@ local function TouchListenerAnswerBox1(touch)
             alternateAnswerBox1AlreadyTouched = false
 
             -- if the box is in the userAnswerBox Placeholder  go to center of placeholder
-            if (((userAnswerBoxPlaceholder.x - userAnswerBoxPlaceholder.width/2) < alternateAnswerBox1.x ) and 
+            if (((userAnswerBoxPlaceholder.x - userAnswerBoxPlaceholder.width/5) < alternateAnswerBox1.x ) and 
                 ((userAnswerBoxPlaceholder.x + userAnswerBoxPlaceholder.width/2) > alternateAnswerBox1.x ) and 
                 ((userAnswerBoxPlaceholder.y - userAnswerBoxPlaceholder.height/2) < alternateAnswerBox1.y ) and 
                 ((userAnswerBoxPlaceholder.y + userAnswerBoxPlaceholder.height/2) > alternateAnswerBox1.y ) ) then
@@ -361,7 +360,7 @@ function scene:create( event )
 
     --the text that displays the question
     questionText = display.newText( "" , 0, 0, nil, 100)
-    questionText.x = display.contentWidth * 0.3
+    questionText.x = display.contentWidth * 0.2
     questionText.y = display.contentHeight * 0.9
 
     -- create the soccer ball and place it on the scene
@@ -376,12 +375,12 @@ function scene:create( event )
 
     --create answerbox alternate answers and the boxes to show them
     answerbox = display.newText("", display.contentWidth * 0.9, 0, nil, 100)
-    alternateAnswerBox1 = display.newText("", display.contentWidth * 0.9, 0, nil, 100)
-    alternateAnswerBox2 = display.newText("", display.contentWidth * 0.9, 0, nil, 100)
+    alternateAnswerBox1 = display.newText("", display.contentWidth * 0.1, 0, nil, 100)
+    alternateAnswerBox2 = display.newText("", display.contentWidth * 0.1, 0, nil, 100)
 
     -- set the x positions of each of the answer boxes
     answerboxPreviousX = display.contentWidth * 0.9
-    alternateAnswerBox1PreviousX = display.contentWidth * 0.9
+    alternateAnswerBox1PreviousX = display.contentWidth * 0.8
     alternateAnswerBox2PreviousX = display.contentWidth * 0.9
 
 
