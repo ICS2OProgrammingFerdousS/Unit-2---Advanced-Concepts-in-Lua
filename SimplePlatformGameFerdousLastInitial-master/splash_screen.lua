@@ -1,8 +1,8 @@
 -----------------------------------------------------------------------------------------
---
--- intro_screen.lua
--- Created by: Ms Raffin
--- Date: Nov. 22nd, 2014
+-- Title: Simple Platform Game
+-- Name: Ferdous Sediqi
+-- Course: ICS2O
+-- This program...
 -- Description: This is the splash screen of the game. It displays the app logo and the 
 -- company logo with some sort of animation...
 -----------------------------------------------------------------------------------------

@@ -7,7 +7,6 @@
 --If character goes off a certain araea they go back to the start. When a user interactes
 --with piant a trivia question will come up. they will have a limided time to click on the answer
 -----------------------------------------------------------------------------------------
-
 -----------------------------------------------------------------------------------------
 -- INITIALIZATIONS
 -----------------------------------------------------------------------------------------
@@ -64,7 +63,7 @@ local textTouched = false
 
 --making transition to next scene
 local function BackToLevel1() 
-    composer.hideOverlay("crossFade", 400 )
+    composer.hideOverlay("fromRight", 400 )
   
     ResumeGame()
 end 
