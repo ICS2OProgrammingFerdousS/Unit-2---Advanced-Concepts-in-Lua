@@ -112,9 +112,9 @@ local function DetermineAlternateAnswers()
 -- RESET ALL X POSITIONS OF ANSWER BOXES (because the x-position is changed when it is
 -- placed into the black box)
 -----------------------------------------------------------------------------------------
-    answerbox.x = display.contentWidth * 0.9
-    alternateAnswerBox1.x = display.contentWidth * 0.9
-    alternateAnswerBox2.x = display.contentWidth * 0.9
+    answerbox.x = display.contentWidth * 0.1
+    alternateAnswerBox1.x = display.contentWidth * 0.1
+    alternateAnswerBox2.x = display.contentWidth * 0.1
 
 
 end
@@ -203,6 +203,7 @@ local function TouchListenerAnswerbox(touch)
 
             --let other boxes know it has been clicked
             answerboxAlreadyTouched = true
+          
 
         --drag the answer to follow the mouse
         elseif (touch.phase == "moved") then
@@ -216,7 +217,7 @@ local function TouchListenerAnswerbox(touch)
             answerboxAlreadyTouched = false
 
               -- if the number is dragged into the userAnswerBox, place it in the center of it
-            if (((userAnswerBoxPlaceholder.x - userAnswerBoxPlaceholder.width/2) < answerbox.x ) and
+            if (((userAnswerBoxPlaceholder.x - userAnswerBoxPlaceholder.width/1) < answerbox.x ) and
                 ((userAnswerBoxPlaceholder.x + userAnswerBoxPlaceholder.width/2) > answerbox.x ) and 
                 ((userAnswerBoxPlaceholder.y - userAnswerBoxPlaceholder.height/2) < answerbox.y ) and 
                 ((userAnswerBoxPlaceholder.y + userAnswerBoxPlaceholder.height/2) > answerbox.y ) ) then
@@ -360,8 +361,9 @@ function scene:create( event )
 
     --the text that displays the question
     questionText = display.newText( "" , 0, 0, nil, 100)
-    questionText.x = display.contentWidth * 0.2
-    questionText.y = display.contentHeight * 0.9
+    questionText.x = display.contentWidth * 0.7
+    questionText.y = display.contentHeight * 0.6
+    questionText:setTextColor(0.2, 1, 1)
 
     -- create the soccer ball and place it on the scene
     soccerball = display.newImageRect("Images/soccerball.png", 60, 60, 0, 0)
@@ -379,15 +381,15 @@ function scene:create( event )
     alternateAnswerBox2 = display.newText("", display.contentWidth * 0.1, 0, nil, 100)
 
     -- set the x positions of each of the answer boxes
-    answerboxPreviousX = display.contentWidth * 0.9
-    alternateAnswerBox1PreviousX = display.contentWidth * 0.8
-    alternateAnswerBox2PreviousX = display.contentWidth * 0.9
+    answerboxPreviousX = display.contentWidth * 1
+    alternateAnswerBox1PreviousX = display.contentWidth * 0.6
+    alternateAnswerBox2PreviousX = display.contentWidth * 0.3
 
 
     -- the black box where the user will drag the answer
     userAnswerBoxPlaceholder = display.newImageRect("Images/userAnswerBoxPlaceholder.png",  130, 130, 0, 0)
     userAnswerBoxPlaceholder.x = display.contentWidth * 0.6
-    userAnswerBoxPlaceholder.y = display.contentHeight * 0.9
+    userAnswerBoxPlaceholder.y = display.contentHeight * 0.4
 
     ----------------------------------------------------------------------------------
     --adding objects to the scene group

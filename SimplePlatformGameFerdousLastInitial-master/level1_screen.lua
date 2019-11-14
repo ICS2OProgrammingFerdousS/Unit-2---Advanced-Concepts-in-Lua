@@ -61,7 +61,7 @@ local uArrow
 local lArrow
 
 local motionx = 0
-local SPEED = 10
+local SPEED = 5
 local LINEAR_VELOCITY = -150
 local GRAVITY = 7
 local leftW 
@@ -73,6 +73,12 @@ local ball2
 local theBall
 local ball3
 local questionsAnswered = 0
+
+
+local youWinChannel
+local youWinSound = audio.loadSound("sounds/Cheer.m4a")
+local youLostChannel
+local youLost = audio.loadSound("sounds/YouLose.mp3")
 
 -----------------------------------------------------------------------------------------
 -- LOCAL SCENE FUNCTIONS
@@ -147,7 +153,7 @@ local function ReplaceCharacter()
     motionx = 0
 
     -- add physics body
-    physics.addBody( character, "dynamic", { density=0, friction=0.5, bounce=0, rotation=0 } )
+    physics.addBody( character, "dynamic", { density=0, friction=0.1, bounce=0, rotation=0 } )
 
     -- prevent character from being able to tip over
     character.isFixedRotation = true
@@ -203,6 +209,7 @@ local function onCollision( self, event )
             -- remove the character from the display
             display.remove(character)
 
+
             -- decrease number of lives
             numLives = numLives - 1
 
@@ -217,6 +224,8 @@ local function onCollision( self, event )
                 heart1.isVisible = true
                 heart2.isVisible = false
                 timer.performWithDelay(200, YouLoseTransition)
+                local youLostChannel = audio.play(youLost)
+
             end
            end
 
@@ -236,7 +245,6 @@ local function onCollision( self, event )
 
             -- make the character invisible
             character.isVisible = false
-
             -- show overlay with math question
             composer.showOverlay( "level1_question", { isModal = true, effect = "fromRight", time = 800})
 
@@ -248,6 +256,11 @@ local function onCollision( self, event )
             --check to see if the user has answered 5 questions
             if (questionsAnswered == 3) then
                 -- after getting 3 questions right, go to the you win screen
+                  timer.performWithDelay(200, YouWinTransition)
+                  local youWinChannel = audio.play(youWinSound)
+
+
+
             end
         end        
 
@@ -297,11 +310,11 @@ local function AddPhysicsBodies()
     physics.addBody( platform3, "static", { density=1.0, friction=0.3, bounce=0.2 } )
     physics.addBody( platform4, "static", { density=1.0, friction=0.3, bounce=0.2 } )
 
-    physics.addBody( spikes1, "static", { density=1.0, friction=0.3, bounce=0.2 } )
-    physics.addBody( spikes2, "static", { density=1.0, friction=0.3, bounce=0.2 } )
-    physics.addBody( spikes3, "static", { density=1.0, friction=0.3, bounce=0.2 } )    
+    physics.addBody( spikes1, "static", { density=1.0, friction=0.2, bounce=0.2 } )
+    physics.addBody( spikes2, "static", { density=1.0, friction=0.2, bounce=0.2 } )
+    physics.addBody( spikes3, "static", { density=1.0, friction=0.2, bounce=0.2 } )    
 
-    physics.addBody( spikes1platform, "static", { density=1.0, friction=0.3, bounce=0.2 } )
+    physics.addBody( spikes1platform, "static", { density=0.1, friction=0.0, bounce=0.1 } )
     physics.addBody( spikes2platform, "static", { density=1.0, friction=0.3, bounce=0.2 } )
     physics.addBody( spikes3platform, "static", { density=1.0, friction=0.3, bounce=0.2 } )
 
@@ -473,11 +486,7 @@ function scene:create( event )
     heart2.y = 50
     heart2.isVisible = true
 --insert heart
- heart2 = display.newImageRect("Images/heart.png", 80, 80)
- heart2.x = 210
- heart2.y = 50
- heart2.isVisible = true
-
+ 
 
     -- Insert objects into the scene group in order to ONLY be associated with this scene
     sceneGroup:insert( heart2 )
@@ -499,6 +508,7 @@ function scene:create( event )
     lArrow = display.newImageRect("Images/LeftArrowUnpressed.png", 50, 100)
     lArrow.x = display.contentWidth * 8.2 / 11
     lArrow.y = display.contentHeight * 8.5 / 9
+    sceneGroup:insert(lArrow)
 
     -- Insert objects into the scene group in order to ONLY be associated with this scene
     sceneGroup:insert( uArrow)
