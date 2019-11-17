@@ -18,6 +18,9 @@ local scene = composer.newScene( sceneName )
 -- The local variables for this scene
 local bkg_image
 
+-- background sound
+local soundEffect = audio.loadSound("Sounds/UGH1.wav")
+local soundEffectChannel
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
 -----------------------------------------------------------------------------------------
@@ -69,6 +72,8 @@ function scene:show( event )
     -----------------------------------------------------------------------------------------
 
     elseif ( phase == "did" ) then
+        --displaying background sound
+        soundEffectChannel = audio.play(soundEffect, {channel = 1, loops = -1})
 
         -- Called when the scene is now on screen.
         -- Insert code here to make the scene come alive.
@@ -90,6 +95,8 @@ function scene:hide( event )
     -----------------------------------------------------------------------------------------
 
     if ( phase == "will" ) then
+        --stoping sound
+        soundEffect = audio.stop()
         -- Called when the scene is on screen (but is about to go off screen).
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.

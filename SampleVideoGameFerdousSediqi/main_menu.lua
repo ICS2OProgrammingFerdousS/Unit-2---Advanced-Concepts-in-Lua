@@ -16,6 +16,7 @@ mainMenu = "main_menu"
 -- Creating Scene Object
 local scene = composer.newScene( mainMenu )
 
+
 -----------------------------------------------------------------------------------------
 -- LOCAL VARIABLES
 -----------------------------------------------------------------------------------------
@@ -24,6 +25,10 @@ local bkg_image
 local playButton
 local creditsButton
 local instructionsButton
+-- backgroundSound
+local sound = audio.loadSound("Sounds/TABL.wav")
+local soundChannel
+local clickSound = audio.loadSound("Sounds/PopSound.wp3.wav")
 
 -----------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
@@ -32,6 +37,8 @@ local instructionsButton
 -- Creating Transition Function to Credits Page
 local function CreditsTransition( )       
     composer.gotoScene( "credits_screen", {effect = "fromRight", time = 500})
+    local  clickSound = audio.play(clickSound)
+
 end 
 
 -----------------------------------------------------------------------------------------
@@ -39,6 +46,8 @@ end
 -- Creating Transition to Level1 Screen
 local function Level1ScreenTransition( )
     composer.gotoScene( "level1_screen", {effect = "fromLeft", time = 1000})
+    local  clickSound = audio.play(clickSound)
+
 end   
 
 -----------------------------------------------------------------------------------------
@@ -46,6 +55,8 @@ end
 -- INSERT LOCAL FUNCTION DEFINITION THAT GOES TO INSTRUCTIONS SCREEN 
 local function gotoInstructions( )
     composer.gotoScene("Instruction", {effect = "zoomOutInRotate", time = 500})
+    local  clickSound = audio.play(clickSound)
+
 end
 
 --timer.performWithDelay ( 3000, gotoInstructions )
@@ -95,11 +106,11 @@ function scene:create( event )
             -- Insert the images here
             defaultFile = "Images/Start Button Unpressed.png", 150, 100,
             overFile = "Images/Start Button Pressed.png", 150, 100,
-
+            --
             -- When the button is released, call the Level1 screen transition function
-            onRelease = Level1ScreenTransition          
-        } )
+            onRelease = Level1ScreenTransition    
 
+        } )
     -----------------------------------------------------------------------------------------
 
     -- Creating Credits Button
@@ -139,7 +150,7 @@ function scene:create( event )
             overFile = "Images/Instructions Button Pressed.png", 150, 100,
 
             -- When the button is released, call the Credits transition function
-            onRelease = InstructionsTransition
+            onRelease = gotoInstructions
         } ) 
    
     -----------------------------------------------------------------------------------------
@@ -176,7 +187,7 @@ function scene:show( event )
 
     -- Called when the scene is now on screen.
     elseif ( phase == "did" ) then
-
+    soundChannel = audio.play(sound, {channel = 1, loops = -1})
     -- Insert code here to make the scene come alive.
     -- Example: start timers, begin animation, play audio, etc.     
 
@@ -199,6 +210,8 @@ function scene:hide( event )
     -----------------------------------------------------------------------------------------
 
     if ( phase == "will" ) then
+-- stoping the backgroundSound
+        sound = audio.stop()
         -- Called when the scene is on screen (but is about to go off screen).
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.

@@ -69,6 +69,11 @@ local userAnswerBoxPlaceholder
 local correctSound
 local booSound
 
+-- tracks the number correct
+local numCorrect = 0
+--tracks the number of wrong
+local numWrong = 0
+
 -----------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
 -----------------------------------------------------------------------------------------
@@ -226,6 +231,12 @@ local function TouchListenerAnswerbox(touch)
                 answerbox.x = userAnswerBoxPlaceholder.x
                 answerbox.y = userAnswerBoxPlaceholder.y
                 userAnswer = correctAnswer
+                numCorrect = numCorrect + 1
+                if(numCorrect == 3) then
+                    -- yow win screen
+                    composer.gotoScene( "you_win" )
+                    end
+
 
                 -- call the function to check if the user's input is correct or not
                 CheckUserAnswerInput()
@@ -266,6 +277,11 @@ local function TouchListenerAnswerBox1(touch)
                 alternateAnswerBox1.y = userAnswerBoxPlaceholder.y
 
                 userAnswer = alternateAnswer1
+                numWrong = numWrong + 1
+                if(numWrong == 2)then
+                    composer.gotoScene("you_lost")
+                end
+                
 
                 -- call the function to check if the user's input is correct or not
                 CheckUserAnswerInput()
@@ -305,7 +321,12 @@ local function TouchListenerAnswerBox2(touch)
                 alternateAnswerBox2.x = userAnswerBoxPlaceholder.x
                 alternateAnswerBox2.y = userAnswerBoxPlaceholder.y
                 userAnswer = alternateAnswer2
-
+                
+                 numWrong = numWrong + 1
+                if(numWrong == 2)then
+                    composer.gotoScene("you_lost")
+                end
+                
                 -- call the function to check if the user's input is correct or not
                 CheckUserAnswerInput()
 
@@ -353,7 +374,7 @@ function scene:create( event )
     ----------------------------------------------------------------------------------
 
     -- Insert the background image
-    bkg_image = display.newImageRect("Images/Game Screen.png", 2048, 1536)
+    bkg_image = display.newImageRect("Images/tnb.png", 2048, 1536)
     bkg_image.anchorX = 0
     bkg_image.anchorY = 0
     bkg_image.width = display.contentWidth
@@ -363,7 +384,7 @@ function scene:create( event )
     questionText = display.newText( "" , 0, 0, nil, 100)
     questionText.x = display.contentWidth * 0.7
     questionText.y = display.contentHeight * 0.6
-    questionText:setTextColor(0.2, 1, 1)
+    questionText:setTextColor(0.2, 0.4, 1)
 
     -- create the soccer ball and place it on the scene
     soccerball = display.newImageRect("Images/soccerball.png", 60, 60, 0, 0)
@@ -378,12 +399,15 @@ function scene:create( event )
     --create answerbox alternate answers and the boxes to show them
     answerbox = display.newText("", display.contentWidth * 0.9, 0, nil, 100)
     alternateAnswerBox1 = display.newText("", display.contentWidth * 0.1, 0, nil, 100)
-    alternateAnswerBox2 = display.newText("", display.contentWidth * 0.1, 0, nil, 100)
+    alternateAnswerBox2 = display.newText("", display.contentWidth * 0.9, 0, nil, 100)
+    answerbox:setTextColor(1, 0.4, 0.2)
+    alternateAnswerBox1:setTextColor(1, 0.2, 1)
+    alternateAnswerBox2:setTextColor(1, 0.7, 0.1)
 
     -- set the x positions of each of the answer boxes
-    answerboxPreviousX = display.contentWidth * 1
-    alternateAnswerBox1PreviousX = display.contentWidth * 0.6
-    alternateAnswerBox2PreviousX = display.contentWidth * 0.3
+    answerboxPreviousX = display.contentWidth * 0.1
+    alternateAnswerBox1PreviousX = display.contentWidth * 0.1
+    alternateAnswerBox2PreviousX = display.contentWidth * 0.1
 
 
     -- the black box where the user will drag the answer
