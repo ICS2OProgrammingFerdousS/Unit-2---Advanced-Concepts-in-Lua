@@ -74,6 +74,9 @@ local numCorrect = 0
 --tracks the number of wrong
 local numWrong = 0
 
+-- background sound
+local backgroundMusic = audio.loadSound("Sounds/Hoot.wav")
+local backgroundMusicChannel
 -----------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
 -----------------------------------------------------------------------------------------
@@ -445,7 +448,8 @@ function scene:show( event )
         -- Called when the scene is still off screen (but is about to come on screen).    
 
     elseif ( phase == "did" ) then
-
+        --display backgroundMusic
+        backgroundMusicChannel = audio.play(backgroundMusic, {channel = 1, loops = -1})
         -- Called when the scene is now on screen.
         -- Insert code here to make the scene come alive.
         -- Example: start timers, begin animation, play audio, etc.
@@ -468,6 +472,8 @@ function scene:hide( event )
     -----------------------------------------------------------------------------------------
 
     if ( phase == "will" ) then
+        -- stop the backgroundMusic after scene
+        backgroundMusic = audio.stop()
         -- Called when the scene is on screen (but is about to go off screen).
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
@@ -477,7 +483,6 @@ function scene:hide( event )
 
     elseif ( phase == "did" ) then
         -- Called immediately after scene goes off screen.
-        audio.stop()
         RemoveAnswerBoxEventListeners()
     end
 
