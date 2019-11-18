@@ -380,7 +380,7 @@ function scene:create( event )
 
     -- set the x positions of each of the answer boxes
     answerboxPreviousX = display.contentWidth * 0.9
-    alternateAnswerBox1PreviousX = display.contentWidth * 0.8
+    alternateAnswerBox1PreviousX = display.contentWidth * 0.
     alternateAnswerBox2PreviousX = display.contentWidth * 0.9
 
 
