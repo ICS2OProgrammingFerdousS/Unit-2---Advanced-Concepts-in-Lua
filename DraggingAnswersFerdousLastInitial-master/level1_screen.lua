@@ -26,6 +26,8 @@ local scene = composer.newScene( sceneName )
 -----------------------------------------------------------------------------------------
 -- LOCAL VARIABLES
 -----------------------------------------------------------------------------------------
+-- globa veriable for sound
+
 
 -- The background image and soccer ball for this scene
 local bkg_image
@@ -417,6 +419,7 @@ function scene:create( event )
     userAnswerBoxPlaceholder = display.newImageRect("Images/userAnswerBoxPlaceholder.png",  130, 130, 0, 0)
     userAnswerBoxPlaceholder.x = display.contentWidth * 0.6
     userAnswerBoxPlaceholder.y = display.contentHeight * 0.4
+     
 
     ----------------------------------------------------------------------------------
     --adding objects to the scene group
@@ -429,7 +432,7 @@ function scene:create( event )
     sceneGroup:insert( alternateAnswerBox1 )
     sceneGroup:insert( alternateAnswerBox2 )
     sceneGroup:insert( soccerball )
-
+    
 end --function scene:create( event )
 
 -----------------------------------------------------------------------------------------
@@ -450,6 +453,7 @@ function scene:show( event )
     elseif ( phase == "did" ) then
         --display backgroundMusic
         backgroundMusicChannel = audio.play(backgroundMusic, {channel = 1, loops = -1})
+    
         -- Called when the scene is now on screen.
         -- Insert code here to make the scene come alive.
         -- Example: start timers, begin animation, play audio, etc.
@@ -482,12 +486,16 @@ function scene:hide( event )
     -----------------------------------------------------------------------------------------
 
     elseif ( phase == "did" ) then
+    
+
         -- Called immediately after scene goes off screen.
         RemoveAnswerBoxEventListeners()
     end
+    end
 
-end --function scene:hide( event )
 
+ 
+--function scene:hide( event )
 -----------------------------------------------------------------------------------------
 
 -- The function called when the scene is issued to be destroyed
