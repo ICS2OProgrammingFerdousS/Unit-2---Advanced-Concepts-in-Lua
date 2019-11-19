@@ -69,6 +69,14 @@ local userAnswerBoxPlaceholder
 local correctSound
 local booSound
 
+-- tracks the number correct
+local numCorrect = 0
+--tracks the number of wrong
+local numWrong = 0
+
+-- background sound
+local backgroundMusic = audio.loadSound("Sounds/Hoot.wav")
+local backgroundMusicChannel
 -----------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
 -----------------------------------------------------------------------------------------
@@ -112,9 +120,9 @@ local function DetermineAlternateAnswers()
 -- RESET ALL X POSITIONS OF ANSWER BOXES (because the x-position is changed when it is
 -- placed into the black box)
 -----------------------------------------------------------------------------------------
-    answerbox.x = display.contentWidth * 0.9
-    alternateAnswerBox1.x = display.contentWidth * 0.9
-    alternateAnswerBox2.x = display.contentWidth * 0.9
+    answerbox.x = display.contentWidth * 0.1
+    alternateAnswerBox1.x = display.contentWidth * 0.1
+    alternateAnswerBox2.x = display.contentWidth * 0.1
 
 
 end
@@ -203,6 +211,7 @@ local function TouchListenerAnswerbox(touch)
 
             --let other boxes know it has been clicked
             answerboxAlreadyTouched = true
+          
 
         --drag the answer to follow the mouse
         elseif (touch.phase == "moved") then
@@ -216,7 +225,7 @@ local function TouchListenerAnswerbox(touch)
             answerboxAlreadyTouched = false
 
               -- if the number is dragged into the userAnswerBox, place it in the center of it
-            if (((userAnswerBoxPlaceholder.x - userAnswerBoxPlaceholder.width/2) < answerbox.x ) and
+            if (((userAnswerBoxPlaceholder.x - userAnswerBoxPlaceholder.width/1) < answerbox.x ) and
                 ((userAnswerBoxPlaceholder.x + userAnswerBoxPlaceholder.width/2) > answerbox.x ) and 
                 ((userAnswerBoxPlaceholder.y - userAnswerBoxPlaceholder.height/2) < answerbox.y ) and 
                 ((userAnswerBoxPlaceholder.y + userAnswerBoxPlaceholder.height/2) > answerbox.y ) ) then
@@ -225,6 +234,12 @@ local function TouchListenerAnswerbox(touch)
                 answerbox.x = userAnswerBoxPlaceholder.x
                 answerbox.y = userAnswerBoxPlaceholder.y
                 userAnswer = correctAnswer
+                numCorrect = numCorrect + 1
+                if(numCorrect == 3) then
+                    -- yow win screen
+                    composer.gotoScene( "you_win" )
+                    end
+
 
                 -- call the function to check if the user's input is correct or not
                 CheckUserAnswerInput()
@@ -265,6 +280,11 @@ local function TouchListenerAnswerBox1(touch)
                 alternateAnswerBox1.y = userAnswerBoxPlaceholder.y
 
                 userAnswer = alternateAnswer1
+                numWrong = numWrong + 1
+                if(numWrong == 2)then
+                    composer.gotoScene("you_lost")
+                end
+                
 
                 -- call the function to check if the user's input is correct or not
                 CheckUserAnswerInput()
@@ -304,7 +324,12 @@ local function TouchListenerAnswerBox2(touch)
                 alternateAnswerBox2.x = userAnswerBoxPlaceholder.x
                 alternateAnswerBox2.y = userAnswerBoxPlaceholder.y
                 userAnswer = alternateAnswer2
-
+                
+                 numWrong = numWrong + 1
+                if(numWrong == 2)then
+                    composer.gotoScene("you_lost")
+                end
+                
                 -- call the function to check if the user's input is correct or not
                 CheckUserAnswerInput()
 
@@ -352,7 +377,7 @@ function scene:create( event )
     ----------------------------------------------------------------------------------
 
     -- Insert the background image
-    bkg_image = display.newImageRect("Images/Game Screen.png", 2048, 1536)
+    bkg_image = display.newImageRect("Images/tnb.png", 2048, 1536)
     bkg_image.anchorX = 0
     bkg_image.anchorY = 0
     bkg_image.width = display.contentWidth
@@ -360,8 +385,9 @@ function scene:create( event )
 
     --the text that displays the question
     questionText = display.newText( "" , 0, 0, nil, 100)
-    questionText.x = display.contentWidth * 0.2
-    questionText.y = display.contentHeight * 0.9
+    questionText.x = display.contentWidth * 0.7
+    questionText.y = display.contentHeight * 0.6
+    questionText:setTextColor(0.2, 0.4, 1)
 
     -- create the soccer ball and place it on the scene
     soccerball = display.newImageRect("Images/soccerball.png", 60, 60, 0, 0)
@@ -376,18 +402,21 @@ function scene:create( event )
     --create answerbox alternate answers and the boxes to show them
     answerbox = display.newText("", display.contentWidth * 0.9, 0, nil, 100)
     alternateAnswerBox1 = display.newText("", display.contentWidth * 0.1, 0, nil, 100)
-    alternateAnswerBox2 = display.newText("", display.contentWidth * 0.1, 0, nil, 100)
+    alternateAnswerBox2 = display.newText("", display.contentWidth * 0.9, 0, nil, 100)
+    answerbox:setTextColor(1, 0.4, 0.2)
+    alternateAnswerBox1:setTextColor(1, 0.2, 1)
+    alternateAnswerBox2:setTextColor(1, 0.7, 0.1)
 
     -- set the x positions of each of the answer boxes
-    answerboxPreviousX = display.contentWidth * 0.9
-    alternateAnswerBox1PreviousX = display.contentWidth * 0.
-    alternateAnswerBox2PreviousX = display.contentWidth * 0.9
+    answerboxPreviousX = display.contentWidth * 0.1
+    alternateAnswerBox1PreviousX = display.contentWidth * 0.1
+    alternateAnswerBox2PreviousX = display.contentWidth * 0.1
 
 
     -- the black box where the user will drag the answer
     userAnswerBoxPlaceholder = display.newImageRect("Images/userAnswerBoxPlaceholder.png",  130, 130, 0, 0)
     userAnswerBoxPlaceholder.x = display.contentWidth * 0.6
-    userAnswerBoxPlaceholder.y = display.contentHeight * 0.9
+    userAnswerBoxPlaceholder.y = display.contentHeight * 0.4
 
     ----------------------------------------------------------------------------------
     --adding objects to the scene group
@@ -419,7 +448,8 @@ function scene:show( event )
         -- Called when the scene is still off screen (but is about to come on screen).    
 
     elseif ( phase == "did" ) then
-
+        --display backgroundMusic
+        backgroundMusicChannel = audio.play(backgroundMusic, {channel = 1, loops = -1})
         -- Called when the scene is now on screen.
         -- Insert code here to make the scene come alive.
         -- Example: start timers, begin animation, play audio, etc.
@@ -442,6 +472,8 @@ function scene:hide( event )
     -----------------------------------------------------------------------------------------
 
     if ( phase == "will" ) then
+        -- stop the backgroundMusic after scene
+        backgroundMusic = audio.stop()
         -- Called when the scene is on screen (but is about to go off screen).
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
@@ -451,7 +483,6 @@ function scene:hide( event )
 
     elseif ( phase == "did" ) then
         -- Called immediately after scene goes off screen.
-        audio.stop()
         RemoveAnswerBoxEventListeners()
     end
 

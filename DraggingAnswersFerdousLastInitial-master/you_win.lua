@@ -1,8 +1,8 @@
 -----------------------------------------------------------------------------------------
---
+-- Ferdous
 -- credits_screen.lua
 -- Created by: Daniel Lopez-Carreon
--- Date: Nov. 24th, 2014
+-- Date: Nov. 10th, 2019
 -- Description: This is the you win screen
 -----------------------------------------------------------------------------------------
 
@@ -19,7 +19,9 @@ local composer = require( "composer" )
 local widget = require( "widget" )
 
 -----------------------------------------------------------------------------------------
-
+-- local variable for sound effect
+local youWinSound =  audio.loadSound("Sounds/cheer.m4a")
+local yowWinSoundChannel
 -- Naming Scene
 sceneName = "you_win"
 
@@ -71,9 +73,9 @@ function scene:show( event )
     -----------------------------------------------------------------------------------------
 
     elseif ( phase == "did" ) then
-        -- Called when the scene is now on screen.
-        -- Insert code here to make the scene come alive.
-        -- Example: start timers, begin animation, play audio, etc.
+        -- display the win sound
+        yowWinSoundChannel = audio.play(youWinSound)
+
     end
 
 end -- function scene:show( event )
@@ -100,11 +102,10 @@ function scene:hide( event )
     -----------------------------------------------------------------------------------------
 
     elseif ( phase == "did" ) then
-        -- Called immediately after scene goes off screen.
-    end
+--    display the sound effect
 
 end --function scene:hide( event )
-
+end
 -----------------------------------------------------------------------------------------
 
 -- The function called when the scene is issued to be destroyed

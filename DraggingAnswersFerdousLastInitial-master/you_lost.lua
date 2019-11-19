@@ -1,59 +1,37 @@
-
--- splash_screen.lua
--- Created by: Your Name
--- Date: Month Day, Year
--- Description: This is the splash screen of the game. It displays the 
--- company logo that...
+-- Ferdous
+-- credits_screen.lua
+-- Created by: Daniel Lopez-Carreon
+-- Date: Nov. 10th, 2019
+-- Description: This is the you win screen
 -----------------------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------------------
+-- INITIALIZATIONS
+-----------------------------------------------------------------------------------------
+-- sound veriables
+local youLost = audio.loadSound("Sounds/boo.mp3")
+local youLostChannel
 
 -- Use Composer Library
 local composer = require( "composer" )
 
--- Name the Scene
-sceneName = "splash_screen"
+-----------------------------------------------------------------------------------------
 
--- background sound effect
-local backgroundSound = audio.loadSound("Sounds/Hoot.wav")
-local backgroundSoundChannel
+-- Use Widget Library
+local widget = require( "widget" )
 
 -----------------------------------------------------------------------------------------
 
--- Create Scene Object
-local scene = composer.newScene( sceneName )
+-- Naming Scene
+sceneName = "you_lost"
 
-----------------------------------------------------------------------------------------
--- LOCAL VARIABLES
------------------------------------------------------------------------------------------
- 
--- The local variables for this scene
-local beetleship
-local scrollXSpeed = 10
-local scrollYSpeed = -5
-local jungleSounds = audio.loadSound("Sounds/animals144.mp3")
-local jungleSoundsChannel
--- Adding click sound
-
-
---------------------------------------------------------------------------------------------
--- LOCAL FUNCTIONS
---------------------------------------------------------------------------------------------
-
--- The function that moves the beetleship across the screen
-local function moveBeetleship()
-    beetleship.x = beetleship.x + scrollXSpeed
-    beetleship.y = beetleship.y + scrollYSpeed
-end
-
--- The function that will go to the main menu 
-local function gotoMainMenu()
-    composer.gotoScene( "main_menu" )
-
-
-end
+-- Creating Scene Object
+local scene = composer.newScene( sceneName ) -- This function doesn't accept a string, only a variable containing a string
 
 -----------------------------------------------------------------------------------------
--- GLOBAL SCENE FUNCTIONS
+-- DISPLAY OBJECTS
 -----------------------------------------------------------------------------------------
+local bkg_image
 
 -- The function called when the screen doesn't exist
 function scene:create( event )
@@ -61,22 +39,21 @@ function scene:create( event )
     -- Creating a group that associates objects with the scene
     local sceneGroup = self.view
 
-    -- set the background to be black
-    display.setDefault("background", 0, 0, 0)
+    -----------------------------------------------------------------------------------------
+    -- BACKGROUND AND DISPLAY OBJECTS
+    -----------------------------------------------------------------------------------------
 
-    -- Insert the beetleship image
-    beetleship = display.newImageRect("Images/beetleship.png", 200, 200)
+    -- Insert the background image and set it to the center of the screen
+    bkg_image = display.newImage("Images/Losescreen.png")
+    bkg_image.x = display.contentCenterX
+    bkg_image.y = display.contentCenterY
+    bkg_image.width = display.contentWidth
+    bkg_image.height = display.contentHeight
 
-    -- set the initial x and y position of the beetleship
-    beetleship.x = 100
-    beetleship.y = display.contentHeight/2
-
-    -- Insert objects into the scene group in order to ONLY be associated with this scene
-    sceneGroup:insert( beetleship )
-
-end -- function scene:create( event )
-
---------------------------------------------------------------------------------------------
+    -- Associating display objects with this scene 
+    sceneGroup:insert( bkg_image )
+end
+-----------------------------------------------------------------------------------------
 
 -- The function called when the scene is issued to appear on screen
 function scene:show( event )
@@ -90,24 +67,19 @@ function scene:show( event )
 
     -----------------------------------------------------------------------------------------
 
-    -- Called when the scene is still off screen (but is about to come on screen).
     if ( phase == "will" ) then
-       
+        -- Called when the scene is still off screen (but is about to come on screen).
+
     -----------------------------------------------------------------------------------------
 
     elseif ( phase == "did" ) then
-        -- start the splash screen music
-        backgroundSoundChannel = audio.play(backgroundSound)
+        -- display the sound
+        youLostChannel = audio.play(youLost)
 
-        -- Call the moveBeetleship function as soon as we enter the frame.
-        Runtime:addEventListener("enterFrame", moveBeetleship)
-
-        -- Go to the main menu screen after the given time.
-        timer.performWithDelay ( 3000, gotoMainMenu )          
         
     end
 
-end --function scene:show( event )
+end -- function scene:show( event )
 
 -----------------------------------------------------------------------------------------
 
@@ -116,21 +88,22 @@ function scene:hide( event )
 
     -- Creating a group that associates objects with the scene
     local sceneGroup = self.view
+
+    -----------------------------------------------------------------------------------------
+
     local phase = event.phase
 
     -----------------------------------------------------------------------------------------
 
-    -- Called when the scene is on screen (but is about to go off screen).
-    -- Insert code here to "pause" the scene.
-    -- Example: stop timers, stop animation, stop audio, etc.
-    if ( phase == "will" ) then  
-backgroundSound = audio.stop()
+    if ( phase == "will" ) then
+        -- Called when the scene is on screen (but is about to go off screen).
+        -- Insert code here to "pause" the scene.
+        -- Example: stop timers, stop animation, stop audio, etc.
+
     -----------------------------------------------------------------------------------------
 
-    -- Called immediately after scene goes off screen.
     elseif ( phase == "did" ) then
-        
-        -- stop the jungle sounds channel for this screen
+        -- Called immediately after scene goes off screen.
     end
 
 end --function scene:hide( event )
@@ -149,7 +122,8 @@ function scene:destroy( event )
     -- Called prior to the removal of scene's view ("sceneGroup").
     -- Insert code here to clean up the scene.
     -- Example: remove display objects, save state, etc.
-end -- function scene:destroy( event )
+
+end --function scene:destroy( event )
 
 -----------------------------------------------------------------------------------------
 -- EVENT LISTENERS
