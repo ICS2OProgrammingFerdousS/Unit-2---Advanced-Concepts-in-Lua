@@ -1,16 +1,15 @@
 -- main.lua
+--Ferdous
+-- mute and unMute
 
 display.setDefault("background", 1, 1, 1)
 
 local composer = require( "composer" )
-
 -----------------------------------------------------------------------------------------
 
 -- Use Widget Library
 local widget = require( "widget" )
-
 -----------------------------------------------------------------------------------------
-
 -- Naming Scene
 sceneName = "main_Menu"
 
