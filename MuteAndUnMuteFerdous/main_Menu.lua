@@ -15,10 +15,16 @@ sceneName = "main_Menu"
 
 -- Creating Scene Object
 local scene = composer.newScene( sceneName )
+--------------------------------------------------------------------------------
+--global veriables
+--------------------------------------------------------------------------------
+soundOn = true
+
 
 -----------------------------------------------------------------------------------
 -- local veriables
 ----------------------------------------------------------------------------------
+
 local muteButton
 local unmuteButton
 -- backgroundMusic veriables
@@ -75,7 +81,6 @@ function scene:show( event )
 	----------------------------------------------------------------------------------
 --global veriables
 ----------------------------------------------------------------------------------
-	soundOn = true
 	if(phase == "will")then
 
 	elseif(phase == "did")then
