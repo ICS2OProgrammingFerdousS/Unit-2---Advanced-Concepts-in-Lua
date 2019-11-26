@@ -1,11 +1,7 @@
------------------------------------------------------------------------------------------
 -- Ferdous
 -- credits_screen.lua
--- Created by: Daniel Lopez-Carreon
--- Date: Nov. 10th, 2019
 -- Description: This is the you win screen
 -----------------------------------------------------------------------------------------
-
 -----------------------------------------------------------------------------------------
 -- INITIALIZATIONS
 -----------------------------------------------------------------------------------------
@@ -38,11 +34,9 @@ function scene:create( event )
 
     -- Creating a group that associates objects with the scene
     local sceneGroup = self.view
-
-    -----------------------------------------------------------------------------------------
-    -- BACKGROUND AND DISPLAY OBJECTS
-    -----------------------------------------------------------------------------------------
-
+-----------------------------------------------------------------------------------------
+-- BACKGROUND AND DISPLAY OBJECTS
+-----------------------------------------------------------------------------------------
     -- Insert the background image and set it to the center of the screen
     bkg_image = display.newImage("Images/Winscreen.png")
     bkg_image.x = display.contentCenterX
@@ -57,76 +51,53 @@ end
 
 -- The function called when the scene is issued to appear on screen
 function scene:show( event )
-
     -- Creating a group that associates objects with the scene
     local sceneGroup = self.view
-
-    -----------------------------------------------------------------------------------------
-
+-----------------------------------------------------------------------------------------
     local phase = event.phase
-
-    -----------------------------------------------------------------------------------------
-
+-----------------------------------------------------------------------------------------
     if ( phase == "will" ) then
-        -- Called when the scene is still off screen (but is about to come on screen).
-
-    -----------------------------------------------------------------------------------------
-
+-- Called when the scene is still off screen (but is about to come on screen).
+-----------------------------------------------------------------------------------------
     elseif ( phase == "did" ) then
-        -- display the win sound
-        yowWinSoundChannel = audio.play(youWinSound)
-
+-- display the win sound
+    yowWinSoundChannel = audio.play(youWinSound)
     end
-
 end -- function scene:show( event )
 
 -----------------------------------------------------------------------------------------
-
 -- The function called when the scene is issued to leave the screen
 function scene:hide( event )
-
-    -- Creating a group that associates objects with the scene
+ -- Creating a group that associates objects with the scene
     local sceneGroup = self.view
-
-    -----------------------------------------------------------------------------------------
-
+-----------------------------------------------------------------------------------------
     local phase = event.phase
-
-    -----------------------------------------------------------------------------------------
-
-    if ( phase == "will" ) then
+-----------------------------------------------------------------------------------------
+     if ( phase == "will" ) then
         -- Called when the scene is on screen (but is about to go off screen).
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
-
-    -----------------------------------------------------------------------------------------
-
+-----------------------------------------------------------------------------------------
     elseif ( phase == "did" ) then
 --    display the sound effect
 
-end --function scene:hide( event )
+    end 
 end
 -----------------------------------------------------------------------------------------
 
 -- The function called when the scene is issued to be destroyed
 function scene:destroy( event )
-
-    -- Creating a group that associates objects with the scene
+ -- Creating a group that associates objects with the scene
     local sceneGroup = self.view
+ -----------------------------------------------------------------------------------------
+-- Called prior to the removal of scene's view ("sceneGroup").
+-- Insert code here to clean up the scene.
+-- Example: remove display objects, save state, etc.
 
-    -----------------------------------------------------------------------------------------
-
-
-    -- Called prior to the removal of scene's view ("sceneGroup").
-    -- Insert code here to clean up the scene.
-    -- Example: remove display objects, save state, etc.
-
-end --function scene:destroy( event )
-
+end 
 -----------------------------------------------------------------------------------------
 -- EVENT LISTENERS
 -----------------------------------------------------------------------------------------
-
 -- Adding Event Listeners
 scene:addEventListener( "create", scene )
 scene:addEventListener( "show", scene )
