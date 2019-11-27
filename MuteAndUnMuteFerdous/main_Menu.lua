@@ -34,6 +34,8 @@ local backgroundMusicChannel
 -------------------------------------------------------------------------------------
 local function Mute( touch )
 	if(touch.phase == "ended")then
+		if(soundOn == true)then
+
 --pause the sound
 	audio.pause(backgroundMusicChannel)
 --set boolean for sound status
@@ -41,18 +43,20 @@ local function Mute( touch )
 	muteButton.isVisible = false
 	unmuteButton.isVisible = true
 	end	
+ end
 end
 
 local function unMute( touch )
 	if(touch.pause == "ended")then
 --play the music 
+    	if(soundOn == false)then
 	audio.resume(backgroundMusicChannel)
 	soundOn = true
 	muteButton.isVisible = true
 	unmuteButton.isVisible = false
 	end
+  end
 end
-
 ------------------------------------------------------------------------------------
 --global functions
 ------------------------------------------------------------------------------------

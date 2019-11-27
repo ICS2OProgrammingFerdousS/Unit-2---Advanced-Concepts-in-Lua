@@ -24,6 +24,11 @@ sceneName = "you_lose"
 
 -- Creating Scene Object
 local scene = composer.newScene( sceneName )
+---------------------------------------------------------------------------------------
+--local sound
+---------------------------------------------------------------------------------------
+local sound = audio.loadSound("Sounds/Spring sound effect.mp3")
+local soundChannel
 
 -----------------------------------------------------------------------------------------
 -- FORWARD REFERENCES
@@ -80,6 +85,8 @@ function scene:show( event )
     -----------------------------------------------------------------------------------------
 
     elseif ( phase == "did" ) then
+        --display background sound
+        soundChannel = audio.play(sound, {channel = 3, loops= -1})
 
         -- Called when the scene is now on screen.
         -- Insert code here to make the scene come alive.
@@ -110,7 +117,8 @@ function scene:hide( event )
     -----------------------------------------------------------------------------------------
 
     elseif ( phase == "did" ) then
-        -- Called immediately after scene goes off screen.
+        --stop background sound 
+        soundChannel = audio.stop()
     end
 
 end

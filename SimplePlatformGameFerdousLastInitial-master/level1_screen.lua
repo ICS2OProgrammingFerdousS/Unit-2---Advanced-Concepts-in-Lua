@@ -73,12 +73,15 @@ local ball2
 local theBall
 local ball3
 local questionsAnswered = 0
-
-
+-------------------------------------------------------------------------------------------------
+--local sounds
+--------------------------------------------------------------------------------------------------
+local backgroundSound = audio.loadSound("Sounds/Grease_Monkey.mp3")
+local backgroundSoundChannel
 local youWinChannel
-local youWinSound = audio.loadSound("sounds/Cheer.m4a")
+local youWinSound = audio.loadSound("Sounds/Cheer.m4a")
 local youLostChannel
-local youLost = audio.loadSound("sounds/YouLose.mp3")
+local youLost = audio.loadSound("Sounds/YouLose.mp3")
 
 -----------------------------------------------------------------------------------------
 -- LOCAL SCENE FUNCTIONS
@@ -590,10 +593,7 @@ function scene:show( event )
         physics.setGravity( 1, GRAVITY )
 
     elseif ( phase == "did" ) then
-
-        -- Called when the scene is now on screen.
-        -- Insert code here to make the scene come alive.
-        -- Example: start timers, begin animation, play audio, etc.
+        backgroundSoundChannel = audio.play(backgroundSound, {channel= 1, loops = -1})
 
         numLives = 2
         questionsAnswered = 0
@@ -644,6 +644,7 @@ function scene:hide( event )
         RemoveArrowEventListeners()
         RemoveRuntimeListeners()
         display.remove(character)
+        backgroundSoundChannel = audio.stop()
     end
 
 end --function scene:hide( event )

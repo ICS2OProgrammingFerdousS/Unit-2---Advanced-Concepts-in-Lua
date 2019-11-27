@@ -18,8 +18,11 @@ local scene = composer.newScene( sceneName )
 
 -- local variables for the scene
 local bkg
-
+---------------------------------------------------------------------------------------
+--local sounds
 ----------------------------------------------------------------------------------------
+local sounds = audio.loadSound("Sounds/Pop.mp3")
+local soundsChannel
 -----------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
 -----------------------------------------------------------------------------------------
@@ -67,10 +70,8 @@ function scene:show( event )
     -----------------------------------------------------------------------------------------
 
     elseif ( phase == "did" ) then
-
-        -- Called when the scene is now on screen.
-        -- Insert code here to make the scene come alive.
-        -- Example: start timers, begin animation, play audio, etc.
+        --display background sound
+        soundsChannel = audio.play(sounds, {channel = 2, loops = -1})
     end
 
 end
@@ -97,6 +98,7 @@ function scene:hide( event )
     -----------------------------------------------------------------------------------------
 
     elseif ( phase == "did" ) then
+        soundsChannel = audio.stop()
         -- Called immediately after scene goes off screen.
     end
 
