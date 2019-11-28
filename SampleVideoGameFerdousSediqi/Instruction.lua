@@ -1,9 +1,6 @@
----- Ferdous Sediqi
-
-
---This is the credits page, displaying a back button to the main menu.
--- Use Composer Libraries
-
+--Ferdous Sediqi
+--title:Simple videogame
+--in this assignment we cred credits screen
 local composer = require( "composer" )
 local widget = require( "widget" )
 

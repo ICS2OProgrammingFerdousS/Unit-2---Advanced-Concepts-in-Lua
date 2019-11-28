@@ -1,3 +1,6 @@
+--Ferdous Sediqi
+--title:Simple videogame
+--in this assignment we cred credits screen
 local composer = require( "composer" )
 local widget = require( "widget" )
 
