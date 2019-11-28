@@ -18,13 +18,13 @@ scene = composer.newScene( sceneName ) -- This function doesn't accept a string,
 -----------------------------------------------------------------------------------------
 local bkg_image
 local backButton
-
+-----------------------------------------------------------------------------------------
+--local Sounds
+-----------------------------------------------------------------------------------------
 -- Adding background sound to the scene
 local backgroundMusic = audio.loadSound("Sounds/T3.wav")
 local backgroundMusicChannel
 
--- adding click sound
-local clickSound = audio.loadSound("Sounds/PopSound.wp3.wav")
 
 -----------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
@@ -37,7 +37,6 @@ local transitionOption =({
 })
 local function BackTransition( )
     composer.gotoScene( "main_menu", {effect = "zoomOutInFadeRotate", time = 500})
-    local  clickSound = audio.play(clickSound)
 
 end
 
@@ -121,7 +120,7 @@ function scene:show( event )
 
     elseif ( phase == "did" ) then
         --display backgroundMusic
-        backgroundMusicChannel = audio.play(backgroundMusic, {channels = -1, loops = -1})
+        backgroundMusicChannel = audio.play(backgroundMusic, {channels = 4, loops = -1})
         -- Called when the scene is now on screen.
         -- Insert code here to make the scene come alive.
         -- Example: start timers, begin animation, play audio, etc.
@@ -145,7 +144,7 @@ function scene:hide( event )
 
     if ( phase == "will" ) then
         --stpping the function the backgroundMusic after scene
-        backgroundMusic = audio.stop()
+        backgroundMusicChannel = audio.stop()
         
         -- Called when the scene is on screen (but is about to go off screen).
         -- Insert code here to "pause" the scene.

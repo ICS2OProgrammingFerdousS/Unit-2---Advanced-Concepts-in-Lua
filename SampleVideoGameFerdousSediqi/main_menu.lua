@@ -37,7 +37,6 @@ local clickSound = audio.loadSound("Sounds/PopSound.wp3.wav")
 -- Creating Transition Function to Credits Page
 local function CreditsTransition( )       
     composer.gotoScene( "credits_screen", {effect = "fromRight", time = 500})
-    local  clickSound = audio.play(clickSound)
 
 end 
 
@@ -46,7 +45,6 @@ end
 -- Creating Transition to Level1 Screen
 local function Level1ScreenTransition( )
     composer.gotoScene( "level1_screen", {effect = "fromLeft", time = 1000})
-    local  clickSound = audio.play(clickSound)
 
 end   
 
@@ -55,7 +53,6 @@ end
 -- INSERT LOCAL FUNCTION DEFINITION THAT GOES TO INSTRUCTIONS SCREEN 
 local function gotoInstructions( )
     composer.gotoScene("Instruction", {effect = "zoomOutInRotate", time = 500})
-    local  clickSound = audio.play(clickSound)
 
 end
 
@@ -211,7 +208,7 @@ function scene:hide( event )
 
     if ( phase == "will" ) then
 -- stoping the backgroundSound
-        sound = audio.stop()
+        soundChannel = audio.stop()
         -- Called when the scene is on screen (but is about to go off screen).
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
