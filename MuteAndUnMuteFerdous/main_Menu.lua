@@ -15,10 +15,10 @@ sceneName = "main_Menu"
 
 -- Creating Scene Object
 local scene = composer.newScene( sceneName )
---------------------------------------------------------------------------------
---global veriables
---------------------------------------------------------------------------------
-
+-----------------------------------------------------------------------------
+--global functions
+-------------------------------------------------------------------------------
+soundOn = true
 -----------------------------------------------------------------------------------
 -- local veriables
 ----------------------------------------------------------------------------------
@@ -29,33 +29,33 @@ local unmuteButton
 local backgroundMusic = audio.loadSound("Sounds/Hoot.wav")
 local backgroundMusicChannel
 
+
 -------------------------------------------------------------------------------------
 --local functions
 -------------------------------------------------------------------------------------
 local function Mute( touch )
 	if(touch.phase == "ended")then
 		if(soundOn == true)then
-
 --pause the sound
-	audio.pause(backgroundMusicChannel)
+			audio.pause(backgroundMusicChannel)
 --set boolean for sound status
-	soundOn = false
-	muteButton.isVisible = false
-	unmuteButton.isVisible = true
-	end	
- end
+			soundOn = false
+			muteButton.isVisible = false
+			unmuteButton.isVisible = true
+		end	
+	end
 end
 
 local function unMute( touch )
 	if(touch.pause == "ended")then
 --play the music 
     	if(soundOn == false)then
-	audio.resume(backgroundMusicChannel)
-	soundOn = true
-	muteButton.isVisible = true
-	unmuteButton.isVisible = false
-	end
-  end
+			audio.resume(backgroundMusicChannel)
+			soundOn = true
+			muteButton.isVisible = true
+			unmuteButton.isVisible = false
+		end
+  	end
 end
 ------------------------------------------------------------------------------------
 --global functions
@@ -79,7 +79,6 @@ end
 function scene:show( event )
 	local sceneGroup = self.view
 	local phase = event.phase
-	soundOn = true
 
 	----------------------------------------------------------------------------------
 --global veriables
@@ -88,9 +87,9 @@ function scene:show( event )
 
 
 	elseif(phase == "did")then
-	backgroundMusicChannel = audio.play(backgroundMusic, {loops = -1})
-	muteButton:addEventListener("touch", Mute)
-	unmuteButton:addEventListener("touch", unMute )
+		backgroundMusicChannel = audio.play(backgroundMusic, { loops = -1})
+		muteButton:addEventListener("touch", Mute)
+		unmuteButton:addEventListener("touch", unMute )
 
     end
    end
@@ -99,10 +98,9 @@ function scene:hide( event )
 	local sceneGroup = self.view
 	local phase = event.phase
 	if(phase == "will")then
-	audio.pause(backgroundMusicChannel)
 	elseif(phase == "did")then
-	muteButton:removeEventListener("touch", Mute)
-	unmuteButton:removeEventListener("touch", unMute )
+		muteButton:removeEventListener("touch", Mute)
+		unmuteButton:removeEventListener("touch", unMute )
 
     end
 end
