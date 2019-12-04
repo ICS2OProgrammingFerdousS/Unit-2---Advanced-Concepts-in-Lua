@@ -66,16 +66,16 @@ local alternateAnswerBox2PreviousX
 
 -- the black box where the user will drag the answer
 local userAnswerBoxPlaceholder
-
--- sound effects
-local correctSound
-local booSound
-
 -- tracks the number correct
 local numCorrect = 0
 --tracks the number of wrong
 local numWrong = 0
-
+-----------------------------------------------------------------------------
+--local Sounds
+------------------------------------------------------------------------------
+-- sound effects
+local correctSound
+local booSound
 -- background sound
 local backgroundMusic = audio.loadSound("Sounds/Hoot.wav")
 local backgroundMusicChannel

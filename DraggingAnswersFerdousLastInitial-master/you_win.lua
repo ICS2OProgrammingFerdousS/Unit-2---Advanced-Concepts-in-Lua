@@ -16,7 +16,7 @@ local widget = require( "widget" )
 
 -----------------------------------------------------------------------------------------
 -- local variable for sound effect
-local youWinSound =  audio.loadSound("Sounds/cheer.m4a")
+local youWinSound =  audio.loadSound("Sounds/yabbadabbalaugh.wav")
 local yowWinSoundChannel
 -- Naming Scene
 sceneName = "you_win"
