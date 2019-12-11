@@ -34,27 +34,26 @@ local backgroundMusicChannel
 --local functions
 -------------------------------------------------------------------------------------
 local function Mute( touch )
-	if(touch.phase == "ended")then
-		if(soundOn == true)then
+	if(touch.phase == "ended")then	
+			print ("clicked Mute")
+	
 --pause the sound
 			audio.pause(backgroundMusicChannel)
 --set boolean for sound status
 			soundOn = false
 			muteButton.isVisible = false
 			unmuteButton.isVisible = true
-		end	
 	end
 end
 
 local function unMute( touch )
 	if(touch.pause == "ended")then
+		print ("clicked unMute")
 --play the music 
-    	if(soundOn == false)then
 			audio.resume(backgroundMusicChannel)
 			soundOn = true
 			muteButton.isVisible = true
 			unmuteButton.isVisible = false
-		end
   	end
 end
 ------------------------------------------------------------------------------------
@@ -67,11 +66,16 @@ function scene:create( event )
 	muteButton.x = display.contentWidth*4.5/10
 	muteButton.y = display.contentHeight*4.5/10
 	muteButton.isVisible = true
+	
+
+
 --creating mut button
 	unmuteButton = display.newImageRect("Images/secondSpeeker.png", 80, 80)
 	unmuteButton.x = display.contentWidth*4.5/10
 	unmuteButton.y = display.contentHeight*4.5/10
 	unmuteButton.isVisible = false
+
+
 	sceneGroup:insert(muteButton)
 	sceneGroup:insert(unmuteButton)
 
