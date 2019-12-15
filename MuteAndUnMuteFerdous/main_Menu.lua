@@ -65,14 +65,14 @@ local function secondButton( touch )
 function scene:create( event )
 	local sceneGroup = self.view
 	--creating mute button
-	muteButton = display.newImageRect("Images/mute.png", 90, 90)
-	muteButton.x = 10
-	muteButton.y = 10
+	muteButton = display.newImageRect("Images/mute.png", 700, 800)
+	muteButton.x = 200
+	muteButton.y = 150
 	muteButton.isVisible = true
 --creating mut button
-	unmuteButton = display.newImageRect("Images/unMute .png", 90, 90)
-	unmuteButton.x = 10
-	unmuteButton.y = 10
+	unmuteButton = display.newImageRect("Images/unMute .png", 700, 800)
+	unmuteButton.x = 200
+	unmuteButton.y = 150
 	unmuteButton.isVisible = false
 	sceneGroup:insert(muteButton)
 	sceneGroup:insert(unmuteButton)
