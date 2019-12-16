@@ -25,6 +25,7 @@ soundOn = true
 
 local muteButton
 local unmuteButton
+
 -- backgroundMusic veriables
 local backgroundMusic = audio.loadSound("Sounds/Hoot.wav")
 local backgroundMusicChannel
